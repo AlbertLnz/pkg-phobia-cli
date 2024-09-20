@@ -8,6 +8,7 @@ import {
   bytesToMB,
   colorizeSize,
   parseRepositoryUrl,
+  formatDate,
 } from './functions/programm.js'
 import { createTable } from './functions/create_cli_table3.js'
 
@@ -21,7 +22,8 @@ program
     'PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages'
   )
   .option('-a', 'Description')
-  .action(async (command, option) => {
+  .option('-v', '--latestVersion')
+  .action(async (command, options) => {
     const settings = await getSettings()
     const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
 
@@ -33,7 +35,7 @@ program
       borderChar: '1x1_double',
     })
 
-    if (option.a) {
+    if (options.a) {
       const table = createTable({
         styleBorderColor: 'cyan',
         borderChar: '1x1_double',
@@ -63,6 +65,30 @@ program
       const all_info = `${npmPackage}\n${author}\n${description}\n\n${repository}\n\n${install_size}\n${num_files}`
       table.push([all_info])
       return console.log(table.toString())
+    }
+
+    if (options.v) {
+      const arrayVersionsKeys = Object.keys(registryApi.versions)
+
+      const lastVersion = arrayVersionsKeys.at(-1)
+      const formattedDate = await formatDate(
+        settings,
+        registryApi.time[lastVersion]
+      )
+      return console.log(
+        pc.greenBright('Latest: ' + pc.bold(lastVersion)) +
+          ' | ' +
+          pc.yellowBright(
+            'Size: ' +
+              pc.bold(
+                `${bytesToMB(
+                  registryApi.versions[lastVersion].dist.unpackedSize
+                )} MB`
+              )
+          ) +
+          ' | ' +
+          pc.blueBright('Date: ' + pc.bold(formattedDate))
+      )
     }
 
     table.push([prettySize])
