@@ -18,6 +18,14 @@ program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
 const PRODUCTION = false
 
 program
+  .command('get-config')
+  .description('Get the packagephobia CLI configuration')
+  .action(async () => {
+    const settings = await getSettings()
+    console.log(JSON.stringify(settings, null, 2))
+  })
+
+program
   .arguments('<command>')
   .description(
     'PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages'
