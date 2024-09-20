@@ -165,6 +165,28 @@ program
         return console.log(table.toString())
       }
 
+      if (options.all) {
+        const maxItemsPerRow = 15
+
+        const rows = []
+        for (let i = 0; i < arrayVersionsKeys.length; i += maxItemsPerRow) {
+          rows.push(
+            arrayVersionsKeys
+              .slice(i, i + maxItemsPerRow)
+              .map((version) => pc.dim(version))
+              .join(', ')
+          )
+        }
+
+        const table = createTable({
+          styleBorderColor: 'white',
+          borderChar: '1x1_double',
+        })
+
+        rows.forEach((row) => table.push([row]))
+        return console.log(table.toString())
+      }
+
       const lastVersion = arrayVersionsKeys.at(-1)
       const formattedDate = await formatDate(
         settings,
