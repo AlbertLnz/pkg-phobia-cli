@@ -3,7 +3,7 @@
 import { Command } from 'commander'
 import { getSettings } from './functions/user_settings.js'
 import { getBothData } from './functions/obtain_data.js'
-import { bytesToMB } from './functions/programm.js'
+import { bytesToMB, colorizeSize } from './functions/programm.js'
 
 const program = new Command()
 program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
@@ -20,7 +20,8 @@ program
     const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
 
     const size = bytesToMB(ppApi.install.bytes)
-    console.log(size)
+    const prettySize = colorizeSize(size, ppApi.install.color)
+    console.log(prettySize)
   })
 
 program.parse(process.argv)
