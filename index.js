@@ -9,6 +9,7 @@ import {
   colorizeSize,
   parseRepositoryUrl,
   formatDate,
+  iterateTable,
 } from './functions/programm.js'
 import { createTable } from './functions/create_cli_table3.js'
 
@@ -23,6 +24,8 @@ program
   )
   .option('-a', 'Description')
   .option('-v', '--latestVersion')
+  .option('--all', 'Description')
+  .option('--table', 'Show output in table format')
   .action(async (command, options) => {
     const settings = await getSettings()
     const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
@@ -69,6 +72,57 @@ program
 
     if (options.v) {
       const arrayVersionsKeys = Object.keys(registryApi.versions)
+      const numBy2Sides = options.all
+        ? arrayVersionsKeys.length
+        : settings.numTableRows
+
+      if (options.table) {
+        const firstRows = arrayVersionsKeys.slice(0, numBy2Sides)
+        const lastRows = arrayVersionsKeys.slice(-numBy2Sides)
+
+        let rows = []
+
+        rows = await iterateTable(
+          firstRows,
+          registryApi,
+          rows,
+          1,
+          arrayVersionsKeys.length,
+          numBy2Sides,
+          settings
+        )
+
+        if (!options.all) {
+          rows.push(['...', '...', '...', '...'])
+          rows = await iterateTable(
+            lastRows,
+            registryApi,
+            rows,
+            2,
+            arrayVersionsKeys.length,
+            numBy2Sides,
+            settings
+          )
+        }
+
+        const table = createTable({
+          head: [
+            pc.magentaBright(pc.bold('Id')),
+            pc.greenBright(pc.bold('Version')),
+            pc.yellowBright(pc.bold('Publish Unpacked Size')),
+            pc.blueBright(pc.bold('Timestamp')),
+          ],
+          colWidths: [6, 15, 30, 25],
+          colAligns: ['center', 'center', 'center', 'center'],
+          styleBorderColor: 'blue',
+          styleCompact: true,
+          borderChar: 'all_double',
+        })
+
+        table.push(...rows)
+
+        return console.log(table.toString())
+      }
 
       const lastVersion = arrayVersionsKeys.at(-1)
       const formattedDate = await formatDate(

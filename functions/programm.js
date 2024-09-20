@@ -22,6 +22,32 @@ export async function formatDate(settings, isoString) {
   }
 }
 
+export const iterateTable = async (
+  arr,
+  registryApi,
+  rows,
+  startIndex = 1,
+  originalArrayLength,
+  numBy2Sides,
+  settings
+) => {
+  for (const [index, version] of arr.entries()) {
+    const adjustedIndex =
+      startIndex === 1
+        ? index + 1
+        : originalArrayLength - numBy2Sides + index + 1
+
+    const timestamp = await formatDate(settings, registryApi.time[version])
+    const unpacked_size = `${
+      registryApi.versions[version].dist.unpackedSize +
+      ' B - ' +
+      bytesToMB(registryApi.versions[version].dist.unpackedSize)
+    } MB`
+    rows.push([adjustedIndex, version, unpacked_size, timestamp])
+  }
+  return rows
+}
+
 const hexToRgb = (hex) => {
   const cleanHex = hex.replace(/^#/, '')
   const bigint = parseInt(cleanHex, 16)
