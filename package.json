@@ -7,8 +7,24 @@
     "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "packagephobia",
+    "packages",
+    "npm",
+    "node",
+    "nodejs",
+    "javascript",
+    "command-line",
+    "cli-tool"
+  ],
+  "author": "AlbertLnz",
   "license": "ISC",
-  "description": ""
+  "description": "*PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages",
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "cli-table3": "0.6.5",
+    "commander": "12.1.0",
+    "picocolors": "1.1.0"
+  }
 }
