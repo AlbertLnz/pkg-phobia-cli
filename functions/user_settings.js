@@ -37,3 +37,24 @@ export const getSettings = async () => {
     }
   }
 }
+
+export const insertSettings = async (data) => {
+  try {
+    let settings = await getSettings()
+    settings = {}
+    Object.assign(settings, data)
+    await saveSettings(settings)
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const saveSettings = async (settings) => {
+  try {
+    await fs.writeFile(SETTINGS_PATH, JSON.stringify(settings, null, 2))
+    return settings
+  } catch (error) {
+    console.error(error)
+  }
+}

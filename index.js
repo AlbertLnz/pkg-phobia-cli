@@ -2,7 +2,8 @@
 
 import { Command } from 'commander'
 import pc from 'picocolors'
-import { getSettings } from './functions/user_settings.js'
+import * as p from '@clack/prompts'
+import { getSettings, insertSettings } from './functions/user_settings.js'
 import { getBothData } from './functions/obtain_data.js'
 import {
   bytesToMB,
@@ -10,8 +11,11 @@ import {
   parseRepositoryUrl,
   formatDate,
   iterateTable,
+  fakeSpinner,
 } from './functions/programm.js'
 import { createTable } from './functions/create_cli_table3.js'
+import { askQuestion } from './functions/config_questions.js'
+import { questions } from './data/user_questions.js'
 
 const program = new Command()
 program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
@@ -23,6 +27,35 @@ program
   .action(async () => {
     const settings = await getSettings()
     console.log(JSON.stringify(settings, null, 2))
+  })
+
+program
+  .command('set-config')
+  .description('Configure the packagephobia CLI')
+  .action(async () => {
+    const settings = await getSettings()
+
+    async function main() {
+      p.intro(
+        `${pc.bgMagenta(pc.black('  --Configure the packagephobia CLI--  '))}`
+      )
+
+      const user_config = {}
+      for (const question of Object.values(questions)) {
+        const response = await askQuestion(
+          question.question,
+          question.optionsLabel,
+          question.optionsValue,
+          settings[question.settingLabel]
+        )
+        user_config[question.settingLabel] = response
+      }
+
+      await insertSettings(user_config)
+      await fakeSpinner(pc.bold(pc.dim('Saving configuration...')), 1500)
+      p.outro(`${pc.yellowBright(pc.bold('Establish right!!'))}`)
+    }
+    main().catch(console.error)
   })
 
 program

@@ -1,3 +1,5 @@
+import * as p from '@clack/prompts'
+
 export const bytesToMB = (bytes, decimalPlaces = 2) =>
   (bytes / (1024 * 1024)).toFixed(decimalPlaces)
 
@@ -46,6 +48,13 @@ export const iterateTable = async (
     rows.push([adjustedIndex, version, unpacked_size, timestamp])
   }
   return rows
+}
+
+export const fakeSpinner = async (message, time) => {
+  const s = p.spinner()
+  s.start(message)
+  await new Promise((resolve) => setTimeout(resolve, time))
+  s.stop()
 }
 
 const hexToRgb = (hex) => {
