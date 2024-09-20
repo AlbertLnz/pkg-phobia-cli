@@ -4,6 +4,7 @@ import { Command } from 'commander'
 import { getSettings } from './functions/user_settings.js'
 import { getBothData } from './functions/obtain_data.js'
 import { bytesToMB, colorizeSize } from './functions/programm.js'
+import { createTable } from './functions/create_cli_table3.js'
 
 const program = new Command()
 program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
@@ -21,7 +22,14 @@ program
 
     const size = bytesToMB(ppApi.install.bytes)
     const prettySize = colorizeSize(size, ppApi.install.color)
-    console.log(prettySize)
+
+    const table = createTable({
+      styleBorderColor: 'yellow',
+      borderChar: '1x1_double',
+    })
+
+    table.push([prettySize])
+    console.log(table.toString())
   })
 
 program.parse(process.argv)
