@@ -53,8 +53,14 @@ program
           parseRepositoryUrl(registryApi.repository.url)
         )}`
       )
+      const install_size = pc.yellowBright(
+        `Install size: ${pc.bold(size + ' MB')}`
+      )
+      const num_files = pc.magentaBright(
+        `Number of files: ${pc.bold(ppApi.install.files)}`
+      )
 
-      const all_info = `${npmPackage}\n${author}\n${description}\n\n${repository}`
+      const all_info = `${npmPackage}\n${author}\n${description}\n\n${repository}\n\n${install_size}\n${num_files}`
       table.push([all_info])
       return console.log(table.toString())
     }
