@@ -6,7 +6,7 @@ import { getBothData } from './functions/obtain_data.js'
 
 const program = new Command()
 program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
-const PRODUCTION = false
+const PRODUCTION = true
 
 program
   .arguments('<command>')
@@ -17,7 +17,7 @@ program
     const settings = await getSettings()
     console.log(JSON.stringify(settings, null, 2))
 
-    const { ppApi, registryApi } = await getBothData(PRODUCTION, 'all', command)
+    const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
     console.log('PackagePhobia API', ppApi)
     console.log('NPM Registry API', registryApi)
   })
