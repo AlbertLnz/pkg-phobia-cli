@@ -1,7 +1,6 @@
-<p hidden>[Index](#index)</p>
 <div align="center">
   
-  # 📟 PackagePhobia CLI 📟
+<h1>📟 PackagePhobia CLI 📟</h1>
   
 **PackagePhobia CLI** is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages
 
@@ -16,25 +15,26 @@
   </a>
 
   <a href="https://www.npmjs.com/package/packagephobia-cli">
-    <img src="https://img.shields.io/badge/Package%20Size-21.3K-92C00A.svg" alt="Size">
+    <img src="https://img.shields.io/badge/Package%20Size-unknown-92C00A.svg" alt="Size">
   </a>
 
 </div>
 </div>
 
-| > [!WARNING]
-
+> [!WARNING]
 > This package is not official. It is a personal project, so it may not be updated or maintained.
 
-<a href="https://www.npmjs.com/package/packagephobia-cli">
-  <img src="http://ForTheBadge.com/images/badges/built-by-developers.svg" alt="Developer">
-</a>   |
-|----------------------------------------------|
+<a href="https://www.npmjs.com/package/packagephobia-cli" style="size-6">
+  <img src="http://ForTheBadge.com/images/badges/built-by-developers.svg" alt="Developer" width="180" height="auto">
+</a>
 
-> Packages used
-> 🔮 Commander
-> 🎨 Picocolors
-> 🏯 CliTable3
+<br />
+<br />
+
+> Packages used:
+> 🔮 Commander 〰️
+> 🎨 Picocolors 〰️
+> 🏯 CliTable3 〰️
 > ✨ @Clack/Prompts
 
 ## 🌎 Global Installation (using NPM)
@@ -50,7 +50,7 @@
 | `cd packagephobia-cli`                                     | Enter to the project                                                                      |
 | `npm i -g .`                                               | Install globally on your computer **packagephobia-cli**                                   |
 | `PRODUCTION = false`                                       | For testing the app, you can change the value of the variable **PRODUCTION** to **false** |
-| `pp satori`                                                | Now you can test the programm                                                             |
+| `pp satori`                                                | Now you can test the program                                                              |
 
 ## 📟 Command List (ej: satori)
 
@@ -65,7 +65,7 @@
 | `pp satori -v --all`   | All the versions of the package                                                   |
 | `pp satori 1.0.0`      | Return all the information of that version                                        |
 | `pp get-config`        | Get the packagephobia CLI configuration                                           |
-| `pp set-config`        | Set your own customization **packagephobia CLI** package, for you, my friend 😃✌️ |
+| `pp set-config`        | Set your own customization **packagephobia CLI** package 😃✌️                      |
 
 ## 🤝 Contribute
 
@@ -82,6 +82,8 @@
 ## 📡 API's used
 
 | 📦 | PackagePhobia API |
+|---------------|:---------------------------------------------|
+
 | 🏪 | NPM Registry API |
 |---------------|:---------------------------------------------|
 
@@ -89,12 +91,12 @@
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/albertlnz)
 
-<a href="https://amazon.es">
-  <img src="http://ForTheBadge.com/images/badges/built-with-love.svg" alt="Love">
+<a href="https://i.pinimg.com/736x/b9/d6/ec/b9d6ec7cd26587c7e01336b93a723876.jpg">
+  <img src="http://ForTheBadge.com/images/badges/built-with-love.svg" alt="Love" width="120" height="auto">
 </a>
 
 <div align="center">
 
-**[⬆ Back to Top](#index)**
+**[⬆ Back to Top](#📟-packagephobia-cli-📟)**
 
 </div>
