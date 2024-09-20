@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
+import pc from 'picocolors'
 import { getSettings } from './functions/user_settings.js'
 import { getBothData } from './functions/obtain_data.js'
 import { bytesToMB, colorizeSize } from './functions/programm.js'
@@ -29,7 +30,24 @@ program
     })
 
     if (option.a) {
-      return console.log('Option a')
+      const table = createTable({
+        styleBorderColor: 'cyan',
+        borderChar: '1x1_double',
+      })
+
+      const npmPackage = pc.cyanBright(
+        `Package: ${pc.bold(ppApi.name)}@${pc.bold(ppApi.version)}`
+      )
+      const author = pc.greenBright(
+        `Author: ${pc.bold(registryApi.author.name)}`
+      )
+      const description = pc.whiteBright(
+        `Description: ${pc.dim(registryApi.description)}`
+      )
+
+      const all_info = `${npmPackage}\n${author}\n${description}`
+      table.push([all_info])
+      return console.log(table.toString())
     }
 
     table.push([prettySize])
