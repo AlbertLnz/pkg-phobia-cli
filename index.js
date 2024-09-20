@@ -16,7 +16,7 @@ program
     'PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages'
   )
   .option('-a', 'Description')
-  .action(async (command) => {
+  .action(async (command, option) => {
     const settings = await getSettings()
     const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
 
@@ -27,6 +27,10 @@ program
       styleBorderColor: 'yellow',
       borderChar: '1x1_double',
     })
+
+    if (option.a) {
+      return console.log('Option a')
+    }
 
     table.push([prettySize])
     console.log(table.toString())
