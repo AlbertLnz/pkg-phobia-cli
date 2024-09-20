@@ -3,23 +3,24 @@
 import { Command } from 'commander'
 import { getSettings } from './functions/user_settings.js'
 import { getBothData } from './functions/obtain_data.js'
+import { bytesToMB } from './functions/programm.js'
 
 const program = new Command()
 program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
-const PRODUCTION = true
+const PRODUCTION = false
 
 program
   .arguments('<command>')
   .description(
     'PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages'
   )
+  .option('-a', 'Description')
   .action(async (command) => {
     const settings = await getSettings()
-    console.log(JSON.stringify(settings, null, 2))
-
     const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
-    console.log('PackagePhobia API', ppApi)
-    console.log('NPM Registry API', registryApi)
+
+    const size = bytesToMB(ppApi.install.bytes)
+    console.log(size)
   })
 
 program.parse(process.argv)
