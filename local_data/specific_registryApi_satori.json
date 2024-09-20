@@ -1,0 +1,123 @@
+{
+  "name": "satori",
+  "version": "0.4.3",
+  "keywords": ["HTML", "JSX", "SVG", "converter", "renderer"],
+  "author": { "name": "Shu Ding", "email": "g@shud.in" },
+  "license": "MPL-2.0",
+  "_id": "satori@0.4.3",
+  "maintainers": [
+    { "name": "shudin", "email": "ds303077135@gmail.com" },
+    { "name": "quietshu", "email": "g@shud.in" },
+    { "name": "vercel-release-bot", "email": "infra+release@vercel.com" }
+  ],
+  "homepage": "https://github.com/vercel/satori#readme",
+  "bugs": { "url": "https://github.com/vercel/satori/issues" },
+  "dist": {
+    "shasum": "2006ff9bb02128d04b8e25cc83baa77fd7a51d9a",
+    "tarball": "https://registry.npmjs.org/satori/-/satori-0.4.3.tgz",
+    "fileCount": 17,
+    "integrity": "sha512-gGiXXD52Rk0vkknf0ntf7Bmn0BzoMp9bU/wVdQiUFTf1vRLpxixlsMlT4hP6oqF+Z7sb98+dNtLGJ3ZVVPDyrg==",
+    "signatures": [
+      {
+        "sig": "MEQCIHKHTlAOC9oopCQL9mVLQD6Za4YTOvrAdy0dd6tAMrDrAiAR2scdcHAfP1eGjswXrpWYtD2fgjk1UA3pDmv5juDYzg==",
+        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+      }
+    ],
+    "unpackedSize": 3686131,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.10.10\r\nComment: https://openpgpjs.org\r\n\r\nwsFzBAEBCAAGBQJkEeubACEJED1NWxICdlZqFiEECWMYAoorWMhJKdjhPU1b\r\nEgJ2VmpXWg/+O/CsiF4eLQs7OA2US4K2sSWwCtxk1QiD3TlWKnzVNdmaNaU9\r\nRFCIGEsMx5RGtrEFydi98BDeEw95yQrmED8kqg7xeC6r34p8TaperQlhmnkm\r\n2XIatHztAnEVwGSNXnhLE6FgqLTA2Axhkpk3eXTR2xDQIpLNkma/Mf057MQr\r\n4TnTy0MCvdxd45fJ1lgRERmVUs2RlHQo0nAttxn9XI96Nr6G/lQTh7eBu+Vr\r\nv10ZVTI+P3bcIcDxkwlGQISnxpBcN9eFJmrly2U/bfKwicYKoxKiKxjaMb/9\r\ntY4upLeeamr8j7RdSdruCIpCE7rGeLFhjmymH5yj5LuzDrxjiGyh4tBAwICf\r\ndVsjnwka47UsWgsr1fK9848UWws1yt9PH5HeQf4azA6L59Iv3KoM8s8DUf7X\r\nmhb8ZbSGFvwyj30CwGnuuQjX3/1rJ9pcC10o9AdlRMqG8TJYDZbSAbSxP+q3\r\nxlLpdm+ZUlunKaWB5oMRAMTfbbENxLRM1hqjVED1LlM4YgA1wRIKZVREx880\r\nAtLnm6JxgTD1DCvPAgAdK3qpfNh6AGwhoTsNHQo9BNrumTA0R6yhGrIPdx9J\r\nOAa8L6OYlalmOOd9MU3P7Sn11TVZ/pIYm4h954CUkO9miuMSKOhDHnnxqji3\r\n+1bUs4NUL3vOSXo+1g8nd+Rl97hgt8Apu2E=\r\n=tcQu\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "main": "./dist/index.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "engines": { "node": ">=16" },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./wasm": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.wasm.js",
+      "require": "./dist/index.wasm.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "gitHead": "995ab71b945ea5d64bf997fe4e7939c6a4f766f7",
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:default\" \"pnpm dev:wasm\"",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --quiet --cache",
+    "test": "NODE_ENV=test vitest run --outputTruncateLength=999999999999",
+    "build": "NODE_ENV=production pnpm run build:default && pnpm run build:wasm",
+    "prepare": "husky install",
+    "ci-check": "concurrently \"pnpm prettier-check\" \"pnpm test-type\" \"pnpm lint\"",
+    "dev:test": "NODE_ENV=test vitest --update --outputTruncateLength=999999999999",
+    "dev:wasm": "WASM=1 NODE_ENV=development tsup src/index.ts --watch --ignore-watch playground",
+    "lint:fix": "pnpm lint --fix",
+    "test-type": "tsc -p tsconfig.json --noEmit && tsc -p playground/tsconfig.json --noEmit",
+    "build:wasm": "WASM=1 tsup",
+    "dev:default": "NODE_ENV=development tsup src/index.ts --watch --ignore-watch playground",
+    "prettier-fix": "prettier --write . --cache",
+    "build:default": "tsup",
+    "dev:playground": "turbo dev --filter=satori-playground...",
+    "prettier-check": "prettier --check ."
+  },
+  "_npmUser": {
+    "name": "vercel-release-bot",
+    "email": "infra+release@vercel.com"
+  },
+  "repository": {
+    "url": "git+https://github.com/vercel/satori.git",
+    "type": "git"
+  },
+  "_npmVersion": "9.5.0",
+  "description": "Enlightened library to convert HTML and CSS to SVG.",
+  "directories": {},
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix --cache", "prettier --write --cache"]
+  },
+  "_nodeVersion": "18.14.2",
+  "dependencies": {
+    "linebreak": "^1.1.0",
+    "emoji-regex": "^10.2.1",
+    "yoga-wasm-web": "^0.3.1",
+    "css-box-shadow": "1.0.0-3",
+    "css-to-react-native": "^3.0.0",
+    "@shuding/opentype.js": "1.4.0-beta.0",
+    "postcss-value-parser": "^4.2.0",
+    "css-background-parser": "^0.1.0"
+  },
+  "typesVersions": { "*": { "wasm": ["./dist/index.d.ts"] } },
+  "_hasShrinkwrap": false,
+  "packageManager": "pnpm@7.11.0",
+  "devDependencies": {
+    "tsup": "^5.12.9",
+    "husky": "8.0.3",
+    "react": "^17.0.2",
+    "turbo": "^1.6.3",
+    "twrnc": "^3.4.0",
+    "eslint": "^8.25.0",
+    "vitest": "0.28.4",
+    "prettier": "^2.7.1",
+    "@vitest/ui": "^0.7.6",
+    "typescript": "^4.8.3",
+    "@types/node": "^16",
+    "lint-staged": "13.1.0",
+    "@types/react": "^17.0.38",
+    "concurrently": "^7.3.0",
+    "@resvg/resvg-js": "^2.1.0",
+    "@types/opentype.js": "^1.3.3",
+    "@types/yoga-layout": "^1.9.4",
+    "eslint-plugin-react": "^7.31.10",
+    "jest-image-snapshot": "^5.2.0",
+    "esbuild-plugin-replace": "^1.2.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0"
+  },
+  "_npmOperationalInternal": {
+    "tmp": "tmp/satori_0.4.3_1678896027490_0.09826554067925652",
+    "host": "s3://npm-registry-packages"
+  }
+}

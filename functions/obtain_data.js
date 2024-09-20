@@ -1,12 +1,20 @@
 import fs from 'node:fs/promises'
-import { getFilePath } from './get_file_path.js'
 import { user_agents_list } from '../utils/user_agents.js'
+import { getFilePath } from './get_file_path.js'
 
 // https://packagephobia.com/v2/api.json?p=satori <---- LATEST VERSION
 const PP_PATH_ALL = getFilePath('../local_data/all_ppApi_satori.json')
 // https://registry.npmjs.org/satori <--- ALL VERSIONS
 const REGISTRY_PATH_ALL = getFilePath(
   '../local_data/all_registryApi_satori.json'
+)
+
+// https://packagephobia.com/v2/api.json?p=satori@0.4.3 <--- SPECIFIC VERSION
+const PP_PATH_SPECIFIC = getFilePath('../local_data/specific_ppApi_satori.json')
+
+// https://registry.npmjs.org/satori/0.4.3 <--- SPECIFIC VERSION
+const REGISTRY_PATH_SPECIFIC = getFilePath(
+  '../local_data/specific_registryApi_satori.json'
 )
 
 const loadJsonData = async (filePath) => {
@@ -48,10 +56,21 @@ const loadFetch = async (endpoint) => {
   }
 }
 
-export const getBothData = async (inProduction = false, command) => {
+export const getBothData = async (
+  inProduction = false,
+  type = 'all',
+  command,
+  version = undefined
+) => {
   if (inProduction) {
-    const ppApiEndpoint = `https://packagephobia.com/v2/api.json?p=${command}`
-    const registryApiEndpoint = `https://registry.npmjs.org/${command}`
+    const ppApiEndpoint =
+      type === 'all'
+        ? `https://packagephobia.com/v2/api.json?p=${command}`
+        : `https://packagephobia.com/v2/api.json?p=${command}@${version}`
+    const registryApiEndpoint =
+      type === 'all'
+        ? `https://registry.npmjs.org/${command}`
+        : `https://registry.npmjs.org/${command}/${version}`
 
     const remote_data_ppApi = await loadFetch(ppApiEndpoint)
     const remote_data_registryApi = await loadFetch(registryApiEndpoint)
@@ -62,8 +81,15 @@ export const getBothData = async (inProduction = false, command) => {
   }
 
   if (!inProduction) {
-    const ppApiEndpoint = await loadJsonData(PP_PATH_ALL)
-    const registryApiEndpoint = await loadJsonData(REGISTRY_PATH_ALL)
+    const ppApiEndpoint =
+      type === 'all'
+        ? await loadJsonData(PP_PATH_ALL)
+        : await loadJsonData(PP_PATH_SPECIFIC)
+
+    const registryApiEndpoint =
+      type === 'all'
+        ? await loadJsonData(REGISTRY_PATH_ALL)
+        : await loadJsonData(REGISTRY_PATH_SPECIFIC)
 
     return {
       ppApi: ppApiEndpoint,

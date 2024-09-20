@@ -59,7 +59,7 @@ program
   })
 
 program
-  .arguments('<command>')
+  .arguments('<command> [version]')
   .description(
     'PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages'
   )
@@ -67,9 +67,9 @@ program
   .option('-v', '--latestVersion')
   .option('--all', 'Description')
   .option('--table', 'Show output in table format')
-  .action(async (command, options) => {
+  .action(async (command, version, options) => {
     const settings = await getSettings()
-    const { ppApi, registryApi } = await getBothData(PRODUCTION, command)
+    const { ppApi, registryApi } = await getBothData(PRODUCTION, 'all', command)
 
     const size = bytesToMB(ppApi.install.bytes)
     const prettySize = colorizeSize(size, ppApi.install.color)
@@ -184,6 +184,88 @@ program
           ' | ' +
           pc.blueBright('Date: ' + pc.bold(formattedDate))
       )
+    }
+
+    if (version) {
+      const { ppApi, registryApi } = await getBothData(
+        PRODUCTION,
+        'specific',
+        command,
+        version
+      )
+
+      if (ppApi.version === registryApi.version) {
+        const table = createTable({
+          borderChar: 'all_double',
+          styleCompact: false,
+          styleBorderColor: 'green',
+        })
+
+        const packageName = pc.cyanBright(
+          'Package: ' + pc.bold(registryApi.name)
+        )
+
+        const author = pc.greenBright(
+          '\nAuthor: ' +
+            pc.bold(
+              registryApi?.author?.name ? registryApi.author.name : 'Unknown'
+            )
+        )
+        const description = pc.whiteBright(
+          '\nDescription: ' + pc.dim(registryApi.description)
+        )
+        const unpackedSize = pc.yellowBright(
+          '\nUnpacked size: ' +
+            pc.bold(bytesToMB(registryApi.dist.unpackedSize) + ' MB')
+        )
+        const repository = pc.blueBright(
+          '\nRepository: ' +
+            pc.bold(
+              pc.underline(parseRepositoryUrl(registryApi.repository.url))
+            )
+        )
+        const npmVersion = pc.red(
+          '\nNPM version: ' + pc.bold(registryApi._npmVersion)
+        )
+        const nodeVersion = pc.green(
+          '\nNode version: ' + pc.bold(registryApi._nodeVersion)
+        )
+        const dependencies = registryApi.dependencies
+        const devDependencies = registryApi.devDependencies
+
+        const row1 =
+          packageName +
+          author +
+          description +
+          unpackedSize +
+          repository +
+          npmVersion +
+          nodeVersion
+
+        const row2 =
+          pc.dim(pc.bold(pc.underline('Dependencies') + ':\n')) +
+          Object.entries(dependencies)
+            .map(
+              ([name, version]) =>
+                ` · ${pc.italic(name)}: ${pc.bold(pc.whiteBright(version))}`
+            )
+            .join('\n')
+
+        const row3 =
+          pc.dim(pc.bold(pc.underline('Dev Dependencies') + ':\n')) +
+          Object.entries(devDependencies)
+            .map(
+              ([name, version]) =>
+                ` · ${pc.italic(name)}: ${pc.bold(pc.whiteBright(version))}`
+            )
+            .join('\n')
+
+        table.push([row1], [row2], [row3])
+
+        return console.log(table.toString())
+      } else {
+        return console.log('Version not found')
+      }
     }
 
     table.push([prettySize])
