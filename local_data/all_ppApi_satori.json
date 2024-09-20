@@ -1,0 +1,16 @@
+{
+  "name": "satori",
+  "version": "0.11.1",
+  "publish": {
+    "bytes": 4065210,
+    "files": 20,
+    "pretty": "3.88 MB",
+    "color": "#007EC6"
+  },
+  "install": {
+    "bytes": 9190723,
+    "files": 335,
+    "pretty": "8.76 MB",
+    "color": "#DFB317"
+  }
+}
