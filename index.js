@@ -4,7 +4,11 @@ import { Command } from 'commander'
 import pc from 'picocolors'
 import { getSettings } from './functions/user_settings.js'
 import { getBothData } from './functions/obtain_data.js'
-import { bytesToMB, colorizeSize } from './functions/programm.js'
+import {
+  bytesToMB,
+  colorizeSize,
+  parseRepositoryUrl,
+} from './functions/programm.js'
 import { createTable } from './functions/create_cli_table3.js'
 
 const program = new Command()
@@ -44,8 +48,13 @@ program
       const description = pc.whiteBright(
         `Description: ${pc.dim(registryApi.description)}`
       )
+      const repository = pc.blueBright(
+        `Repository: ${pc.underline(
+          parseRepositoryUrl(registryApi.repository.url)
+        )}`
+      )
 
-      const all_info = `${npmPackage}\n${author}\n${description}`
+      const all_info = `${npmPackage}\n${author}\n${description}\n\n${repository}`
       table.push([all_info])
       return console.log(table.toString())
     }

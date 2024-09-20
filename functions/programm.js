@@ -6,6 +6,9 @@ export const colorizeSize = (size, hexColor) => {
   return `\x1b[38;2;${r};${g};${b}mInstall Size: \x1b[1m${size} MB\x1b[0m`
 }
 
+export const parseRepositoryUrl = (str) =>
+  (str.match(/https?:\/\/[^\s]+/) || [])[0] || null
+
 const hexToRgb = (hex) => {
   const cleanHex = hex.replace(/^#/, '')
   const bigint = parseInt(cleanHex, 16)
