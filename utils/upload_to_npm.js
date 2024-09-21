@@ -65,12 +65,22 @@ const minifyFnct = async () => {
   }
 }
 
+const changeFileOutputName = async (filePath) => {
+  const fileName = path.basename(filePath)
+  const outputFileName =
+    fileName === 'package_production.json'
+      ? 'package.json'
+      : fileName === 'README.npm.md'
+      ? 'README.md'
+      : fileName
+
+  return outputFileName
+}
+
 const cloneFile = async () => {
   for (let i = 0; i < PATH_FILES_TO_CLONE.length; i++) {
     let file = PATH_FILES_TO_CLONE[i]
-
-    const outputFileName =
-      file === 'package_production.json' ? 'package.json' : path.basename(file)
+    const outputFileName = await changeFileOutputName(file)
 
     const outputFilePath = path.join(
       FOLDER_TO_SAVE_MINIFIED_FILES,
