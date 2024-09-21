@@ -1,0 +1,20 @@
+name: 'Publish to NPM'
+
+on: push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - name: publish
+        run: npm publish --access public
+        # working-directory: ./
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_GITHUB_PP_CLI}}

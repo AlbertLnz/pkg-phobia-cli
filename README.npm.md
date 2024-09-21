@@ -79,7 +79,6 @@
 - [ ] Fix some bugs with some packages
 - [ ] More user settings questions
 - [ ] TypeScript support
-- [ ] Publish on NPM using GitHub Actions
 
 ## 📡 API's used
 

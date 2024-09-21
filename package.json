@@ -26,6 +26,10 @@
     "type": "git",
     "url": "https://github.com/AlbertLnz/pkg-phobia-cli"
   },
+  "homepage": "https://github.com/AlbertLnz/pkg-phobia-cli#readme",
+  "bugs": {
+    "url": "https://github.com/AlbertLnz/pkg-phobia-cli/issues"
+  },
   "readme": "README.npm.md",
   "license": "MIT",
   "dependencies": {
