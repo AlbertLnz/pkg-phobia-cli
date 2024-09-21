@@ -10,16 +10,16 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
       - name: node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - name: Set npm working directory
-        run: npm config set prefix ${{ github.workspace }}/npm_pkg_min
-        working-directory: npm_pkg_min
-      - name: publish
-        run: npm publish --access public
-        working-directory: npm_pkg_min
+
+      - name: Publish to NPM
+        run: |
+          cd npm_pkg_min
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_GITHUB_PP_CLI}}
