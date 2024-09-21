@@ -14,13 +14,13 @@ const PATH_FILES_TO_MINIFY = [
   'functions/user_settings.js',
 ]
 const PATH_FILES_TO_CLONE = [
-  'package_production.json', // <-- checked before minify
+  'package_production.json', // <-- checked before clone
   'user_settings.json',
   'README.npm.md',
 ]
 
 const setExecutablePermissions = async (filePath) => {
-  await fs.chmod(filePath, 0o755) // Establece permisos de ejecución
+  await fs.chmod(filePath, 0o755)
 }
 
 const minifyFnct = async () => {
@@ -69,13 +69,12 @@ const cloneFile = async () => {
   for (let i = 0; i < PATH_FILES_TO_CLONE.length; i++) {
     let file = PATH_FILES_TO_CLONE[i]
 
-    if (file.matchAll('package_production.json')) {
-      file = file.replace('package_production.json', 'package.json')
-    }
+    const outputFileName =
+      file === 'package_production.json' ? 'package.json' : path.basename(file)
 
     const outputFilePath = path.join(
       FOLDER_TO_SAVE_MINIFIED_FILES,
-      path.basename(file)
+      outputFileName
     )
 
     try {

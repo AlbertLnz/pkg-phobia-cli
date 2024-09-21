@@ -10,16 +10,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-
       - name: node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-
-      - name: Publish to NPM
-        run: |
-          cd npm_pkg_min
-          npm publish --access public
+      - name: publish
+        run: npm publish --access public
+        working-directory: npm_pkg_min
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_GITHUB_PP_CLI}}
