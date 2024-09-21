@@ -89,7 +89,10 @@ program
         `Package: ${pc.bold(ppApi.name)}@${pc.bold(ppApi.version)}`
       )
       const author = pc.greenBright(
-        `Author: ${pc.bold(registryApi.author.name)}`
+        '\nAuthor: ' +
+          pc.bold(
+            registryApi?.author?.name ? registryApi.author.name : 'Unknown'
+          )
       )
       const description = pc.whiteBright(
         `Description: ${pc.dim(registryApi.description)}`

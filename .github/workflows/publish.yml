@@ -1,3 +1,5 @@
+# BEFORE PUSHING, CHECK TO MINIFY THE FILES FOR NPM
+
 name: 'Publish to NPM'
 
 on: push
@@ -15,6 +17,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: publish
         run: npm publish --access public
-        # working-directory: ./
+        working-directory: ./npm_pkg_min
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_GITHUB_PP_CLI}}

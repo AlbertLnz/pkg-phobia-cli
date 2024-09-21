@@ -1,0 +1,1 @@
+import * as p from'@clack/prompts';import b from'picocolors';async function c(a,A,_,d){var e=_.map((B,C)=>({label:`${b.bold(b.dim(A[C]))}`,value:B}));var f=await p.select({message:b.blueBright(b.bold(a)),options:e,initialValue:b.yellowBright(d)});return f}export{c as askQuestion};

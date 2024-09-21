@@ -1,8 +1,5 @@
 import fs from 'node:fs/promises'
-import { user_agents_list } from '../utils/user_agents.js'
 import { getFilePath } from './get_file_path.js'
-
-const USE_LOCAL_USER_AGENTS = false
 
 // https://packagephobia.com/v2/api.json?p=satori <---- LATEST VERSION
 const PP_PATH_ALL = getFilePath('../local_data/all_ppApi_satori.json')
@@ -52,9 +49,7 @@ const loadJsonData = async (filePath) => {
 }
 
 const loadFetch = async (endpoint) => {
-  const user_agent = USE_LOCAL_USER_AGENTS
-    ? user_agents_list[Math.floor(Math.random() * user_agents_list.length)]
-    : await getRandomUserAgentByURL()
+  const user_agent = await getRandomUserAgentByURL()
 
   try {
     const response = await fetch(endpoint, {

@@ -1,0 +1,1 @@
+import {dirname as a,join as b} from'node:path';import {fileURLToPath as c} from'node:url';export var getFilePath=A=>{return b(a(c(import.meta.url)),A)};
