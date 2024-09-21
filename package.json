@@ -1,28 +1,35 @@
 {
-  "name": "packagephobia-cli",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "pkg-phobia-cli",
+  "description": "*PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages",
+  "version": "0.0.2",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
     "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "javascript",
+    "node",
+    "nodejs",
     "cli",
     "packagephobia",
     "packages",
     "npm",
-    "node",
-    "nodejs",
-    "javascript",
     "command-line",
     "cli-tool"
   ],
   "author": "AlbertLnz",
-  "license": "ISC",
-  "description": "*PackagePhobia CLI is a command-line tool that lets you effortlessly check the install size, dependencies, and other crucial details of your favorite packages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlbertLnz/pkg-phobia-cli"
+  },
+  "readme": "README.npm.md",
+  "license": "MIT",
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
+    "@clack/prompts": "0.7.0",
     "cli-table3": "0.6.5",
     "commander": "12.1.0",
     "picocolors": "1.1.0"

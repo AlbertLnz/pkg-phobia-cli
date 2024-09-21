@@ -21,8 +21,8 @@
 </div>
 </div>
 
-> [!WARNING]
-> This package is not official. It is a personal project, so it may not be updated or maintained.
+| :warning: This package is not official. It is a personal project, so it may not be updated or maintained. |
+| --------------------------------------------------------------------------------------------------------- |
 
 <a href="https://www.npmjs.com/package/pkg-phobia-cli" style="size-6">
   <img src="http://ForTheBadge.com/images/badges/built-by-developers.svg" alt="Developer" width="180" height="auto">
@@ -39,8 +39,8 @@
 
 ## 🌎 Global Installation (using NPM)
 
-> [!TIP]
-> npm i -g pkg-phobia-cli
+| :diamond_shape_with_a_dot_inside: npm i -g pkg-phobia-cli |
+| --------------------------------------------------------- |
 
 ## ⏬ Local Installation
 
@@ -69,8 +69,8 @@
 
 ## 🤝 Contribute
 
-> [!IMPORTANT]
-> This project is still in development, so please, if you want to contribute, you can do it in the [issues](https://github.com/AlbertLnz/pkg-phobia-cli/issues) section.
+| :exclamation: This project is still in development, so please, if you want to contribute, you can do it in the [issues](https://github.com/AlbertLnz/pkg-phobia-cli/issues) section. |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 ## 📑 TO-DO
 

@@ -19,11 +19,11 @@ import { questions } from './data/user_questions.js'
 
 const program = new Command()
 program.configureHelp({ showGlobalOptions: true }).option('-g, --global')
-const PRODUCTION = false
+const PRODUCTION = true
 
 program
   .command('get-config')
-  .description('Get the packagephobia CLI configuration')
+  .description('Get the Packagephobia CLI configuration')
   .action(async () => {
     const settings = await getSettings()
     console.log(JSON.stringify(settings, null, 2))
@@ -31,13 +31,13 @@ program
 
 program
   .command('set-config')
-  .description('Configure the packagephobia CLI')
+  .description('Configure the Packagephobia CLI')
   .action(async () => {
     const settings = await getSettings()
 
     async function main() {
       p.intro(
-        `${pc.bgMagenta(pc.black('  --Configure the packagephobia CLI--  '))}`
+        `${pc.bgMagenta(pc.black('  --Configure the Packagephobia CLI--  '))}`
       )
 
       const user_config = {}
