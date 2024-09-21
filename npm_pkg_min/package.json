@@ -1,7 +1,7 @@
 {
   "name": "pkg-phobia-cli-dev",
   "description": "DEVELOPMENT VERSION OF THE PACKAGEPHOBIA CLI",
-  "version": "0.0.7",
+  "version": "0.0.5",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -43,6 +43,6 @@
     "minify": "11.4.1"
   },
   "bin": {
-    "pp_dev": "./index.js"
+    "pp": "./index.js"
   }
 }
