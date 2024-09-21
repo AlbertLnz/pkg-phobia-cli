@@ -8,15 +8,21 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: node
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - name: publish
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./npm_pkg_min
+
+      - name: Publish to NPM
         run: npm publish --access public
-        working-directory: npm_pkg_min
+        working-directory: ./npm_pkg_min
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_GITHUB_PP_CLI}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_PP_CLI }}
