@@ -2,6 +2,8 @@ import fs from 'node:fs/promises'
 import { user_agents_list } from '../utils/user_agents.js'
 import { getFilePath } from './get_file_path.js'
 
+const USE_LOCAL_USER_AGENTS = false
+
 // https://packagephobia.com/v2/api.json?p=satori <---- LATEST VERSION
 const PP_PATH_ALL = getFilePath('../local_data/all_ppApi_satori.json')
 // https://registry.npmjs.org/satori <--- ALL VERSIONS
@@ -17,6 +19,27 @@ const REGISTRY_PATH_SPECIFIC = getFilePath(
   '../local_data/specific_registryApi_satori.json'
 )
 
+const getRandomUserAgentByURL = async () => {
+  const url =
+    'https://raw.githubusercontent.com/AlbertLnz/pkg-phobia-cli/refs/heads/develop/utils/user_agents.txt'
+
+  try {
+    const response = await fetch(url)
+
+    if (!response.ok)
+      throw new Error(`Error al obtener el archivo: ${response.statusText}`)
+
+    const text = await response.text()
+    const userAgents = text.split('\n').filter((line) => line.trim() !== '')
+    const randomIndex = Math.floor(Math.random() * userAgents.length)
+
+    return userAgents[randomIndex]
+  } catch (error) {
+    console.error('Error al obtener User-Agent:', error)
+    return null
+  }
+}
+
 const loadJsonData = async (filePath) => {
   try {
     const data = await fs.readFile(filePath, 'utf8')
@@ -29,8 +52,9 @@ const loadJsonData = async (filePath) => {
 }
 
 const loadFetch = async (endpoint) => {
-  const user_agent =
-    user_agents_list[Math.floor(Math.random() * user_agents_list.length)]
+  const user_agent = USE_LOCAL_USER_AGENTS
+    ? user_agents_list[Math.floor(Math.random() * user_agents_list.length)]
+    : await getRandomUserAgentByURL()
 
   try {
     const response = await fetch(endpoint, {

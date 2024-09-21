@@ -26,7 +26,7 @@ program
   .description('Get the Packagephobia CLI configuration')
   .action(async () => {
     const settings = await getSettings()
-    console.log(JSON.stringify(settings, null, 2))
+    return console.log(JSON.stringify(settings, null, 2))
   })
 
 program
@@ -291,7 +291,7 @@ program
     }
 
     table.push([prettySize])
-    console.log(table.toString())
+    return console.log(table.toString())
   })
 
 program.parse(process.argv)
