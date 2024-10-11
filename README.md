@@ -15,7 +15,7 @@
   </a>
 
   <a href="https://www.npmjs.com/package/pkg-phobia-cli">
-    <img src="https://img.shields.io/badge/Package%20Size-770%20kB-92C00A.svg" alt="Size">
+    <img src="https://img.shields.io/badge/Package%20Size-15.9%20kB-92C00A.svg" alt="Size">
   </a>
 
 </div>
